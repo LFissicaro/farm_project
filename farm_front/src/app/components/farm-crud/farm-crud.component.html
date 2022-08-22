@@ -1,0 +1,16 @@
+<div class="crud">
+  <table mat-table [dataSource]="dataSource" style="overflow: hidden">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef style="padding-left: 17px">Fazendas Cadastradas</th>
+      <td mat-cell *matCellDef="let farm">{{ farm.name }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      class="table-row"
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="farmDetails(row.id)"
+    ></tr>
+  </table>
+</div>

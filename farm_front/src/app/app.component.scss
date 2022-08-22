@@ -1,0 +1,20 @@
+.sidebar {
+    cursor: pointer;
+    position: fixed;
+    width: 400px;
+    height: 100vh;
+    background: #F0EBE3;
+    z-index: 1;
+}
+
+.logo{
+    max-width: 200px;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+.content{
+    padding: 1rem 2rem;
+}

@@ -1,0 +1,35 @@
+<div class="farm-register">
+  <h1>Detalhes da Fazenda</h1>
+
+  <mat-form-field appearance="fill" class="details-form-input">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="farm.name" placeholder="Digite o nome da fazenda" />
+  </mat-form-field>
+
+  <!-- nesse ngIf eu pretendo esconder o campo abaixo caso o tipo de requisição seja de edição (id > 0) -->
+  <mat-form-field *ngIf="farm.id == undefined" appearance="fill" class="details-form-input">
+    <mat-label>Area</mat-label>
+    <input matInput [(ngModel)]="farm.area" placeholder="Area" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="details-form-input">
+    <mat-label>Centroid</mat-label>
+    <input matInput [(ngModel)]="farm.centroid" placeholder="Centroid" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="details-form-input">
+    <mat-label>Owner</mat-label>
+    <input matInput type="number" [(ngModel)]="owner1.id" placeholder="Owner ID" />
+  </mat-form-field>
+
+  <div class="draw-farm">
+    <app-farm></app-farm>
+  </div>
+
+  <div class="buttons">
+    <button mat-raised-button (click)="submit(farm.id)" color="primary">Salvar</button>
+    <button mat-raised-button color="secondary" style="margin-left: 1rem" href="/" routerLink="/">
+      Voltar
+    </button>
+  </div>
+</div>

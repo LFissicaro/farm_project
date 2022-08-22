@@ -1,0 +1,32 @@
+<mat-card>
+  <h1>Detalhes da {{ farm.name }}</h1>
+
+  <div class="details-row">
+    <label for="">Fazenda: </label>
+    <div class="details-name">{{ farm.name }}</div>
+  </div>
+
+  <div class="details-row">
+    <label>Proprietário:</label>
+    <div class="details-owner">
+      {{ owner1.name }}
+    </div>
+  </div>
+
+  <div style="display: flex; margin-top: 30px">
+    <label for="">Centroid: </label>
+    <div>{{ farm.centroid }}</div>
+  </div>
+
+  <div style="display: flex; margin-top: 30px">
+    <button mat-raised-button (click)="openEditPage()" color="primary" style="margin-left: 35px">
+      Editar
+    </button>
+    <button mat-raised-button color="error" (click)="openDialog()" style="margin-left: 15px">
+      Excluir
+    </button>
+    <button mat-raised-button routerLink="" color="secondary" style="margin-left: 15px">
+      Voltar
+    </button>
+  </div>
+</mat-card>
