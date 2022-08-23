@@ -2,8 +2,6 @@
 
 Todos os requisitos localizados no readme do front-end do projeto foram atendidos. Adicionei algumas features ao sistema e utilizei angular Material na estilização de componentes.
 
-Infelizmente poderão acontecer alguns bugs, porém acredito ter me antecipado a maioria deles.
-
 Espero que gostem do meu projeto...
 
 author: Leonardo Fissicaro 🙃
