@@ -21,7 +21,7 @@ export class FarmCrudComponent implements OnInit {
 
   async getFarmList() {
     this.dataSource = (await this.farmService.list()) as Farm[] // chamada do farmService para recuperar a lista de fazendas no banco de dados.
-    // console.log(this.dataSource)
+    console.log(this.dataSource)
   }
 
   // clique na linha do crud que leva a rota de details

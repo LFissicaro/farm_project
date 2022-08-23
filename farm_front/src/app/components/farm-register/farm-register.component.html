@@ -13,17 +13,12 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="details-form-input">
-    <mat-label>Centroid</mat-label>
-    <input matInput [(ngModel)]="farm.centroid" placeholder="Centroid" />
-  </mat-form-field>
-
-  <mat-form-field appearance="fill" class="details-form-input">
     <mat-label>Owner</mat-label>
     <input matInput type="number" [(ngModel)]="owner1.id" placeholder="Owner ID" />
   </mat-form-field>
 
   <div class="draw-farm">
-    <app-farm></app-farm>
+    <app-farm (geometryEvent)="receiveGeometry($event)"></app-farm>
   </div>
 
   <div class="buttons">

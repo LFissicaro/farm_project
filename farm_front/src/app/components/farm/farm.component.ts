@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core'
+import { Farm } from './../../models/Farm'
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core'
 import { DrawAddon } from '@common/draw'
 import GeoJSON from 'ol/format/GeoJSON'
 import { MapService } from '../../map.service'
 import { BasemapComponent } from '../../basemap/basemap.component'
 import { GeoJsonFeatureAddon } from '@common/feature'
 import { pointClickStyle, GeoJsonFeature } from '@common/geolib'
-import { Router } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
+import { FarmService } from 'src/app/services/farm.service'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-farm',
@@ -17,10 +19,22 @@ export class FarmComponent implements OnInit {
   private _map!: BasemapComponent
   private _geometries: GeoJsonFeature[] = []
 
-  constructor(private _mapService: MapService, public dialog: MatDialog) {}
+  constructor(
+    private _mapService: MapService,
+    public dialog: MatDialog,
+    private farmService: FarmService,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  farm
+  id
+
+  @Output() geometryEvent = new EventEmitter<GeoJsonFeatureAddon>()
+  @Input() geometryToLoad!: GeoJsonFeatureAddon
 
   ngOnInit() {
     this._map = this._mapService.map
+    this.retrieveFarm()
   }
 
   draw(type: 'Circle') {
@@ -32,6 +46,7 @@ export class FarmComponent implements OnInit {
         callback: (geometry) => {
           const geo = new GeoJSON().writeGeometryObject(geometry) as any
           this.handleNewGeometry(geo)
+          this.sendGeometryToParent(geo)
         },
       })
     )
@@ -55,6 +70,20 @@ export class FarmComponent implements OnInit {
     this._map.fitToAddons(this._map.listByPrefix('geometry'))
     console.log('New geometry', geometry)
     this._geometries.push(geometry)
+  }
+
+  sendGeometryToParent(geometry): void {
+    this.geometryEvent.emit(geometry)
+  }
+
+  async retrieveFarm() {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.id = params.id
+    })
+    if (this.id > 0) {
+      this.farm = await this.farmService.read(this.id)
+      this.handleNewGeometry(this.farm.geometry)
+    }
   }
 
   ngOnDestroy() {

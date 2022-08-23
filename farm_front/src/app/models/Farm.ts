@@ -1,9 +1,10 @@
+import { GeoJsonFeatureAddon } from '@common/feature'
 import { Owner } from './Owner'
 export interface Farm {
   id: number
   name: string
-  geomtry: string
+  geometry
   area: number
-  centroid: number[]
-  // owner: Owner
+  centroid: []
+  owner: Owner
 }

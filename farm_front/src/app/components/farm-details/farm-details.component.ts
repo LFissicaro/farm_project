@@ -4,7 +4,6 @@ import { Owner } from 'src/app/models/Owner'
 import { Farm } from '../../models/Farm'
 import { FarmService } from '../../services/farm.service'
 import { MatDialog } from '@angular/material/dialog'
-import { FarmDeleteDialogComponent } from '../farm-delete-dialog/farm-delete-dialog.component'
 
 @Component({
   selector: 'app-farm-details',
@@ -37,22 +36,11 @@ export class FarmDetailsComponent implements OnInit {
   }
 
   openEditPage() {
-    this.router.navigate(['/farm-register'], { queryParams: { id: this.id } })
+    this.router.navigate(['/farm-register'], { queryParams: { id: this.farm.id } })
   }
 
   deleteFarm() {
-    this.farmService.delete(this.id)
+    this.farmService.delete(this.farm.id)
     this.router.navigate([''])
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(FarmDeleteDialogComponent, {
-      data: { id: this.id },
-      width: '250px',
-    })
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed', result)
-    })
   }
 }

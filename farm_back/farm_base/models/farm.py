@@ -1,6 +1,8 @@
 from django.contrib.gis.db import models
 from django.utils.translation import gettext as _
 
+from farm_base.models.owner import Owner
+
 
 class Farm(models.Model):
     name = models.CharField(verbose_name=_("Name"), max_length=255,
@@ -14,6 +16,8 @@ class Farm(models.Model):
 
     centroid = models.PointField(verbose_name=_("Centroid"),
                                  blank=True, null=True)
+
+    owner = models.ForeignKey(Owner, on_delete=models.PROTECT, blank=True, null=True)
 
     creation_date = models.DateTimeField(verbose_name=_("Creation date"),
                                          auto_now_add=True, editable=False)

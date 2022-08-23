@@ -24,7 +24,6 @@ import { MatCardModule } from '@angular/material/card'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { FarmResolver } from './resolver/farm-resolver'
-import { FarmDeleteDialogComponent } from './components/farm-delete-dialog/farm-delete-dialog.component'
 import { MenuComponent } from './components/menu/menu.component'
 
 @NgModule({
@@ -36,7 +35,6 @@ import { MenuComponent } from './components/menu/menu.component'
     DashboardComponent,
     FarmRegisterComponent,
     FarmDetailsComponent,
-    FarmDeleteDialogComponent,
     MenuComponent,
   ],
   imports: [
