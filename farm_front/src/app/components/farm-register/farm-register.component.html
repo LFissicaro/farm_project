@@ -5,21 +5,19 @@
     <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="farm.name" placeholder="Digite o nome da fazenda" />
   </mat-form-field>
+  <div *ngIf="nameInvalid" class="error" style="margin-top: -15px">
+    *Gentileza digitar um nome válido
+  </div>
 
   <!-- nesse ngIf eu pretendo esconder o campo abaixo caso o tipo de requisição seja de edição (id > 0) -->
   <mat-form-field *ngIf="farm.id == undefined" appearance="fill" class="details-form-input">
     <mat-label>Area</mat-label>
-    <input matInput [(ngModel)]="farm.area" placeholder="Area" />
+    <input matInput disabled [(ngModel)]="farm.area" placeholder="Area" />
   </mat-form-field>
-
-  <!-- <mat-form-field appearance="fill" class="details-form-input">
-    <mat-label>Owner</mat-label>
-    <input matInput type="number" [(ngModel)]="farm.owner.id" placeholder="Owner ID" />
-  </mat-form-field> -->
 
   <mat-form-field appearance="fill" class="details-form-input">
     <mat-label>Owner</mat-label>
-    <mat-select (selectionChange)="changeFarmOwner($event)">
+    <mat-select (selectionChange)="changeFarmOwner($event)" [value]="owner">
       <mat-option *ngFor="let owner of owners" [value]="owners">
         {{ owner.name }}
       </mat-option>
@@ -28,6 +26,9 @@
 
   <div class="draw-farm">
     <app-farm (geometryEvent)="receiveGeometry($event)"></app-farm>
+    <div *ngIf="geometryMissing" class="error" style="margin-top: 10px">
+      *O desenho da fazenda é obrigatório no momento da criação
+    </div>
   </div>
 
   <div class="buttons">

@@ -17,7 +17,7 @@ class Farm(models.Model):
     centroid = models.PointField(verbose_name=_("Centroid"),
                                  blank=True, null=True)
 
-    owner = models.ForeignKey(Owner, on_delete=models.PROTECT, blank=True, null=True)
+    owner_id = models.ForeignKey(Owner, on_delete=models.PROTECT, blank=True, null=True)
 
     creation_date = models.DateTimeField(verbose_name=_("Creation date"),
                                          auto_now_add=True, editable=False)

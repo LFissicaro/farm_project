@@ -5,7 +5,7 @@ export interface Farm {
   name: string
   geometry
   area: number
-  centroid: []
-  // owner: Owner
-  owner: number
+  centroid
+  owner: Owner
+  owner_id: number
 }

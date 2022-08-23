@@ -4,6 +4,7 @@ import { Owner } from 'src/app/models/Owner'
 import { Farm } from '../../models/Farm'
 import { FarmService } from '../../services/farm.service'
 import { MatDialog } from '@angular/material/dialog'
+import { OwnerService } from 'src/app/services/owner.service'
 
 @Component({
   selector: 'app-farm-details',
@@ -15,34 +16,53 @@ export class FarmDetailsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private farmService: FarmService,
+    private ownerService: OwnerService,
     public dialog: MatDialog
   ) {}
 
   id
   farm!: Farm
-  owner1: Owner = {
-    id: 1,
-    name: 'Leonardo',
-    document: '113.113.113-13',
-    document_type: 'CPF',
-  }
+  owner: boolean = false
 
   ngOnInit(): void {
     this.getFarm()
   }
 
+  // recupera os dados da fazenda
   getFarm() {
     this.activatedRoute.data.subscribe((data) => {
       this.farm = data.farm
+      this.retrieveOwner()
     })
   }
 
+  retrieveOwner() {
+    this.ownerService.read(this.farm.owner_id).subscribe((owner) => {
+      this.farm.owner = owner as Owner
+    })
+    if (this.farm.owner) {
+      this.owner = true
+    }
+    console.log(this.farm)
+  }
+
+  // redireciona para a rota de edicao
   openEditPage() {
     this.router.navigate(['/farm-register'], { queryParams: { id: this.farm.id } })
   }
 
+  // remove a fazenda do banco de dados
   deleteFarm() {
-    this.farmService.delete(this.farm.id)
+    this.farmService.delete(this.farm.id).subscribe(
+      (data) => {
+        alert('Fazenda deletada com sucesso!')
+        console.log(data)
+      },
+      (error) => {
+        alert('Ocorreu algo de errado ao deletar esta fazenda!')
+        console.log(error)
+      }
+    )
     this.router.navigate([''])
   }
 }

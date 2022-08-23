@@ -1,24 +1,32 @@
 <mat-card>
-  <h1>Detalhes da {{ farm.name }}</h1>
+  <h1 style="color: #7a4e8a">Detalhes da {{ farm.name }}</h1>
 
   <div class="details-row">
-    <label for="">Fazenda: </label>
-    <div class="details-name">{{ farm.name }}</div>
-  </div>
-
-  <div class="details-row">
-    <label>Proprietário:</label>
-    <div class="details-owner">
-      {{ owner1.name }}
+    <div class="details-label">
+      <label for="">Fazenda: </label>
     </div>
+    <div>{{ farm.name }}</div>
   </div>
 
-  <div style="display: flex; margin-top: 30px">
-    <label for="">Centroid: </label>
-    <div>{{ farm.centroid }}</div>
+  <div class="details-row">
+    <div class="details-label">
+      <label>Proprietário:</label>
+    </div>
+    <div *ngIf="owner">
+      {{ farm.owner.name }}
+    </div>
+    <div *ngIf="!owner" class="details-owner">Sem proprietário cadastrado</div>
   </div>
 
-  <div style="display: flex; margin-top: 30px">
+  <div class="details-row">
+    <div class="details-label">
+      <label for="">Centroid: </label>
+    </div>
+    <div *ngIf="farm.centroid">{{ farm.centroid.coordinates }}</div>
+    <div *ngIf="!farm.centroid" class="details-name">Sem centroid cadastrado</div>
+  </div>
+
+  <div class="details-row">
     <button mat-raised-button (click)="openEditPage()" color="primary" style="margin-left: 35px">
       Editar
     </button>

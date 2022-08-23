@@ -17,7 +17,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 })
 export class FarmComponent implements OnInit {
   private _map!: BasemapComponent
-  private _geometries: GeoJsonFeature[] = []
 
   constructor(
     private _mapService: MapService,
@@ -69,7 +68,6 @@ export class FarmComponent implements OnInit {
     )
     this._map.fitToAddons(this._map.listByPrefix('geometry'))
     console.log('New geometry', geometry)
-    this._geometries.push(geometry)
   }
 
   sendGeometryToParent(geometry): void {

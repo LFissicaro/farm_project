@@ -22,6 +22,9 @@ export class FarmRegisterComponent implements OnInit {
   id
   farm: Farm = {} as Farm
   owners: Owner[] = []
+  owner: Owner = {} as Owner
+  geometryMissing: boolean = false
+  nameInvalid: boolean = false
   owner1: Owner = {
     id: 1,
     name: 'Leonardo',
@@ -37,11 +40,10 @@ export class FarmRegisterComponent implements OnInit {
   retrieveFarm() {
     this.activatedRoute.data.subscribe((data) => {
       this.farm = data.farm
+      this.owner = this.farm.owner
     })
-    // gambiarra hihi
     if (this.farm == undefined) {
       this.farm = {} as Farm
-      this.farm.owner = {} as Owner
     }
   }
 
@@ -52,7 +54,8 @@ export class FarmRegisterComponent implements OnInit {
   }
 
   changeFarmOwner($event) {
-    // this.farm.owner = $event.value[0] as Owner
+    this.farm.owner = $event.value[0] as Owner
+    this.farm.owner_id = $event.value[0].id
     console.log(this.farm)
   }
 
@@ -62,25 +65,34 @@ export class FarmRegisterComponent implements OnInit {
   }
 
   // Esta funcao verifica se os parametros passados satisfazem a
-  // criação co model...
+  // criação do model...
   // Confere se o id do Proprietário existe e se o nome passado é válido!!
   validateSubmit() {
-    // const owner_id = this.farm.owner.id
     if (this.farm.name != undefined && this.farm.name != '') {
-      this.ownerService.read(1).subscribe(
-        (response) => {
-          this.farm.owner = 1
-          this.farmService.create(this.farm as Farm).subscribe((data) => {
-            this.router.navigate([''])
-            alert('Cadastro efetuado com sucesso!')
-            console.log('Cadastro efetuado com sucesso!')
-          })
-        },
-        (error) => {
-          console.error('error verifiyng owner', error)
-          alert('Digite um id válido para proprietário!')
+      this.nameInvalid = false
+      if (this.farm.geometry != undefined && this.farm.geometry != null) {
+        this.geometryMissing = false
+        if (this.farm.owner) {
+          this.ownerService.read(this.farm.owner.id).subscribe(
+            (response) => {
+              this.farmService.create(this.farm as Farm).subscribe((data) => {
+                this.router.navigate([''])
+                alert('Cadastro efetuado com sucesso!')
+                console.log('Cadastro efetuado com sucesso!')
+              })
+            },
+            (error) => {
+              alert('Digite um id válido para proprietário!')
+              console.error('error verifiyng owner', error)
+              this.router.navigate([''])
+            }
+          )
         }
-      )
+      } else {
+        this.geometryMissing = true
+      }
+    } else {
+      this.nameInvalid = true
     }
   }
 
@@ -89,12 +101,14 @@ export class FarmRegisterComponent implements OnInit {
       this.farmService.update(this.farm).subscribe(
         (data) => {
           console.log('farm updated successfully', data)
+          alert('Fazenda atualizada com sucesso!')
+          this.router.navigate([''])
         },
         (error) => {
+          alert('Ocorreu um problema ao atualizar esta fazenda!')
           console.log('error updating')
         }
       )
-      this.router.navigate([''])
     } else {
       this.validateSubmit()
     }
