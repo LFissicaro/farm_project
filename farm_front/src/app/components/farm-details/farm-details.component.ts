@@ -16,9 +16,7 @@ export class FarmDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private farmService: FarmService,
     public dialog: MatDialog
-  ) {
-    // this.farm.owner = {} as Owner
-  }
+  ) {}
 
   id
   farm!: Farm
@@ -30,6 +28,10 @@ export class FarmDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getFarm()
+  }
+
+  getFarm() {
     this.activatedRoute.data.subscribe((data) => {
       this.farm = data.farm
     })

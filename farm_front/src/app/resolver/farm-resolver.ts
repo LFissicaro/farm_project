@@ -12,6 +12,14 @@ export class FarmResolver implements Resolve<Farm> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
-    return this.service.read(route.params.id)
+    const paramsId = route.params.id
+    const queryParamsId = route.queryParams.id
+    if (paramsId) {
+      return this.service.read(paramsId)
+    } else if (queryParamsId) {
+      return this.service.read(queryParamsId)
+    } else {
+      return
+    }
   }
 }

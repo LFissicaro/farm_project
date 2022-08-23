@@ -12,9 +12,18 @@
     <input matInput [(ngModel)]="farm.area" placeholder="Area" />
   </mat-form-field>
 
+  <!-- <mat-form-field appearance="fill" class="details-form-input">
+    <mat-label>Owner</mat-label>
+    <input matInput type="number" [(ngModel)]="farm.owner.id" placeholder="Owner ID" />
+  </mat-form-field> -->
+
   <mat-form-field appearance="fill" class="details-form-input">
     <mat-label>Owner</mat-label>
-    <input matInput type="number" [(ngModel)]="owner1.id" placeholder="Owner ID" />
+    <mat-select (selectionChange)="changeFarmOwner($event)">
+      <mat-option *ngFor="let owner of owners" [value]="owners">
+        {{ owner.name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <div class="draw-farm">

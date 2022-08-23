@@ -6,5 +6,6 @@ export interface Farm {
   geometry
   area: number
   centroid: []
-  owner: Owner
+  // owner: Owner
+  owner: number
 }

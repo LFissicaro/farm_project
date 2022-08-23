@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'farm', component: FarmComponent },
   { path: 'menu', component: MenuComponent },
-  { path: 'farm-register', component: FarmRegisterComponent },
+  { path: 'farm-register', component: FarmRegisterComponent, resolve: { farm: FarmResolver } },
   { path: 'details/:id', component: FarmDetailsComponent, resolve: { farm: FarmResolver } },
 ]
 

@@ -30,7 +30,6 @@ export class FarmComponent implements OnInit {
   id
 
   @Output() geometryEvent = new EventEmitter<GeoJsonFeatureAddon>()
-  @Input() geometryToLoad!: GeoJsonFeatureAddon
 
   ngOnInit() {
     this._map = this._mapService.map
@@ -54,6 +53,7 @@ export class FarmComponent implements OnInit {
 
   geometrySeed: number = 1
   handleNewGeometry(geometry: any) {
+    this.ngOnDestroy()
     const identifier = this.geometrySeed++
     this._map.includeAddon(
       new GeoJsonFeatureAddon({
@@ -76,13 +76,15 @@ export class FarmComponent implements OnInit {
     this.geometryEvent.emit(geometry)
   }
 
-  async retrieveFarm() {
+  retrieveFarm() {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.id = params.id
     })
     if (this.id > 0) {
-      this.farm = await this.farmService.read(this.id)
-      this.handleNewGeometry(this.farm.geometry)
+      this.farmService.read(this.id).subscribe((response) => {
+        this.farm = response
+        this.handleNewGeometry(response.geometry)
+      })
     }
   }
 

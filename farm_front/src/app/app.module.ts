@@ -25,6 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { FarmResolver } from './resolver/farm-resolver'
 import { MenuComponent } from './components/menu/menu.component'
+import { MatSelectModule } from '@angular/material/select'
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MenuComponent } from './components/menu/menu.component'
     MatCardModule,
     MatDialogModule,
     MatProgressBarModule,
+    MatSelectModule,
   ],
   providers: [FarmResolver],
   bootstrap: [AppComponent],
