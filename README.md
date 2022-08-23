@@ -1,6 +1,8 @@
 # Considerações
 
-Todos os requisitos localizados no readme do front-end do projeto foram atendidos. Adicionei algumas features ao sistema e utilizei angular Material na estilização de componentes.
+Olá, eu sou o Leonardo!
+
+Acredito que todos os requisitos localizados no readme do front-end do projeto foram atendidos. Adicionei algumas features ao sistema e utilizei angular Material na estilização de componentes.
 
 Espero que gostem do meu projeto...
 
