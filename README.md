@@ -1,3 +1,13 @@
+# Considerações
+
+Todos os requisitos localizados no readme do front-end do projeto foram atendidos. Adicionei algumas features ao sistema e utilizei angular Material na estilização de componentes.
+
+Infelizmente poderão acontecer alguns bugs, porém acredito ter me antecipado a maioria deles.
+
+Espero que gostem do meu projeto...
+
+author: Leonardo Fissicaro 🙃
+
 # How to apply for a Developer position
 
 This project is a development test that illustrate a little of what we work with at Agrosatelite.
